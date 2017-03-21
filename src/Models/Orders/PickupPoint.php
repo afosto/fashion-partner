@@ -7,6 +7,7 @@ use Afosto\FashionPartner\Components\Model;
 /**
  * Class PickupPoint
  * @package Afosto\FashionPartner\Models\Orders
+ * @property string $id
  * @property string $name
  * @property string $street1
  * @property string $street2
@@ -21,6 +22,7 @@ class PickupPoint extends Model {
      */
     public function getRules() {
         return [
+            ['id', 'string', true, 35],
             ['name', 'string', true, 35],
             ['street1', 'string', true, 35],
             ['street2', 'string', false, 35],

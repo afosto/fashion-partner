@@ -89,7 +89,7 @@ class Order extends Model {
             'shippingMethod'            => 'DEL_TYPE',
             'orderCategory'             => 'ORD_CATEGORY',
             'shippingCost'              => 'TRANSPORT_COST',
-            'orderNumber'               => 'REFERENCE',
+            'orderReference'            => 'REFERENCE',
             'trackTraceNumber'          => 'TRACK_TRACE',
             'exchangeNumber'            => 'EXCHANGE_ORD_NUM',
             'deliverAtNeighbour'        => 'DELIVER_AT_NEIGHTBOURS',
@@ -113,11 +113,11 @@ class Order extends Model {
             ['deliveryAddressId', 'string', false, 10],
             ['salesRepresentativeNumber', 'string', false, 10],
             ['salesAgentNumber', 'string', false, 10],
-            ['shippingAgent', 'string', false, 4],
+            ['shippingAgent', 'string', false, 5],
             ['shippingMethod', 'string', false, 6],
             ['orderCategory', 'string', false, 1],
             ['shippingCost', 'float', false, 'validateTransportCost'],
-            ['orderNumber', 'string', false, 25],
+            ['orderReference', 'string', false, 25],
             ['trackTraceNumber', 'string', false, 1024],
             ['exchangeNumber', 'integer', false],
             ['deliverAtNeighbour', 'string', false, 'validateDeliverNeighbours'],
@@ -179,18 +179,19 @@ class Order extends Model {
      * Run some validation
      */
     public function beforeValidate() {
-        $this->customerId = 1;
-        $this->deliveryAddressId = 1;
         if ($this->orderType === null) {
             $this->orderType = self::TYPE_ORDER;
         }
 
         if ($this->_pickupPoint !== null) {
             $this->shipmentAddress->setAttributes($this->_pickupPoint->getModel());
+            $this->shippingAgent = 'SVRPS';
+            $this->deliveryAddressId = $this->_pickupPoint->id;
         }
 
         if ($this->_storeAddress !== null) {
             $this->shipmentAddress->setAttributes($this->_storeAddress->getModel());
+            $this->deliveryAddressId = 'ST-' . $this->deliveryAddressId;
         }
 
         return parent::beforeValidate();

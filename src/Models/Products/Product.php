@@ -75,7 +75,7 @@ class Product extends Model {
      */
     public function getRules() {
         return [
-            ['style', 'string', true, 12],
+            ['style', 'string', true, 20],
             ['variant', 'string', true, 15],
             ['season', 'string', 'validateSeason'],
             ['type', 'string', false, 1],
@@ -152,7 +152,9 @@ class Product extends Model {
      */
     protected function validateResult($result) {
         if ($result['return']['status'] == 0) {
-            if (count($result['return']['styles']['style']['barcodes']['barcode']) === count($this->barcodes)) {
+            $count = 0;
+            @$count = count($result['return']['styles']['style']['barcodes']['barcode']);
+            if ($count === count($this->barcodes)) {
                 return true;
             }
         }
