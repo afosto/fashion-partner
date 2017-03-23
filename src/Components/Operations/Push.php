@@ -4,7 +4,7 @@ namespace Afosto\FashionPartner\Components\Operations;
 
 use Afosto\FashionPartner\Components\App;
 
-trait Create {
+trait Push {
 
     /**
      * @return string
@@ -28,7 +28,7 @@ trait Create {
      *
      * @return bool
      */
-    public function create() {
+    public function push() {
         return $this->validateResult(App::getInstance()->getApi()->call($this->getMethod(), $this->getModel()));
     }
 

@@ -23,40 +23,43 @@ composer require afosto/fashion-parter
 
 Now, to install a webhook (simple example) on your account, use the following code.
 
+Set the configuration
 ```php
-//Require the composer autoloader
-require_once 'vendor/autoload.php';
-
-//Obtain these parameters from DNL
 $config = [
     'wsdl'        => '',
     'user'        => '',
     'password'    => '',
     'companyCode' => '',
 ];
-
-//Initialize the application
+```
+Iinit application
+```php
 App::init($config); 
-
-//Make a model
+```
+Create a webhook model
+```php
 $webhook = new Afosto\FashionPartner\Models\Webhooks\Webhook();
 $webhook->event = $webhook::HOOK_STOCK;
 $webhook->name = 'TestWebhook';
 $webhook->address = 'https://myapp.test/bucket.php';
-
-//Send a SOAP request
-$webhook->create(); 
+```
+Create the webhook
+```php
+if (!$webhook->push()) {
+    print_r($webhook->errors); 
+} else {
+    echo $webhook->getWebhookId();
+}
 ```
 
 From now on you will receive stock updates at myapp.test/bucket.php. You can even use the integrated webhook bucket to translate the incomming XML into a useable object. Below you see bucket.php:
 ```php
-//Require the composer autoloader
-require_once 'vendor/autoload.php';
-
 $bucket = new \Afosto\FashionPartner\Helpers\Bucket();
 $hook = $bucket->getStock();
 
-//Go through the stock updates
+```
+Walk through the received updates
+```php
 foreach ($hook->list as $stock) {
     echo "New stock for {$stock->barcode} is {$stock->quantity}";
 }

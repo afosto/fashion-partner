@@ -34,6 +34,6 @@ $model->shipmentAddress = $address;
 $model->customer = $contact;
 $model->items[] = $item;
 
-if (!$model->create()) {
+if (!$model->push()) {
     print_r($model->errors);
 }

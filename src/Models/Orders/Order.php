@@ -4,7 +4,7 @@ namespace Afosto\FashionPartner\Models\Orders;
 
 use Afosto\FashionPartner\Components\App;
 use Afosto\FashionPartner\Components\Model;
-use Afosto\FashionPartner\Components\Operations\Create;
+use Afosto\FashionPartner\Components\Operations\Push;
 
 /**
  * Class Order
@@ -31,7 +31,7 @@ use Afosto\FashionPartner\Components\Operations\Create;
  */
 class Order extends Model {
 
-    use Create;
+    use Push;
 
     /**
      * Default order type

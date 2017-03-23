@@ -5,7 +5,7 @@ namespace Afosto\FashionPartner\Models\Products;
 use Afosto\FashionPartner\Components\App;
 use Afosto\FashionPartner\Components\Model;
 use Afosto\Bp\Exceptions\ValidationException;
-use Afosto\FashionPartner\Components\Operations\Create;
+use Afosto\FashionPartner\Components\Operations\Push;
 
 /**
  * Class Create
@@ -34,7 +34,7 @@ use Afosto\FashionPartner\Components\Operations\Create;
  */
 class Product extends Model {
 
-    use Create;
+    use Push;
 
     /**
      * Insert a product variant

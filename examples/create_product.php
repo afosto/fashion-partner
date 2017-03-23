@@ -16,4 +16,4 @@ $picture = new \Afosto\FashionPartner\Models\Products\Picture();
 $picture->url = 'http://path.to.image.jpg';
 $model->pictures[] = $picture;
 
-$model->create();
+$model->push();
