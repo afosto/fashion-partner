@@ -159,6 +159,12 @@ class Product extends Model {
             }
         }
 
+        if (isset($result['return']['styles'])) {
+            foreach ($result['return']['styles'] as $style) {
+                $this->errors[] = $style['message'];
+            }
+        }
+
         return false;
     }
 }

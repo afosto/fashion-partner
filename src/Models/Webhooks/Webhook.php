@@ -93,6 +93,11 @@ class Webhook extends Model {
      * @return bool
      */
     protected function validateResult($result) {
-        return $result['return']['status'] == 0;
+        if ($result['return']['status'] == 1) {
+            return true;
+        }
+        $this->errors[] = $result['return']['message'];
+
+        return false;
     }
 }

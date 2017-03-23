@@ -191,17 +191,9 @@ class Order extends Model {
 
         if ($this->_storeAddress !== null) {
             $this->shipmentAddress->setAttributes($this->_storeAddress->getModel());
-            $this->deliveryAddressId = 'ST-' . $this->deliveryAddressId;
         }
 
         return parent::beforeValidate();
-    }
-
-    /**
-     * @param Item $item
-     */
-    public function addItem(Item $item) {
-        $this->items[] = $item;
     }
 
     /**
@@ -217,6 +209,12 @@ class Order extends Model {
             $status = trim(current($result['return']['orders'])['status']);
             if (is_numeric($status)) {
                 $status = (int)$status;
+            }
+        }
+
+        if (isset($result['return']['orders'])) {
+            foreach ($result['return']['orders'] as $order) {
+                $this->errors[] = $order['message'];
             }
         }
 

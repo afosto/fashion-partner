@@ -50,6 +50,7 @@ class Stock extends Model {
      * @return StockItem[]
      */
     protected function formatResponse($response) {
+        $stockList = [];
         foreach ($response['return']['STOCK_LIST']['STOCK'] AS $stockData) {
             $stock = new StockItem();
             $stock->barcode = $stockData['BARCODE'];
