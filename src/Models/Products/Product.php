@@ -39,26 +39,27 @@ class Product extends Model {
     /**
      * Insert a product variant
      *
-     * @param $barcode
-     * @param $color
-     * @param $size
-     * @param $price
+     * @param      $barcode
+     * @param      $colorCode
+     * @param      $sizeCode
+     * @param      $price
+     * @param null $colorLabel
+     * @param null $sizeLabel
      */
-    public function addVariant($barcode, $color, $size, $price) {
+    public function addVariant($barcode, $colorCode, $sizeCode, $price, $colorLabel = null, $sizeLabel = null) {
         $sizeObject = new Size();
-        $sizeObject->sizeCode = $size;
-        $sizeObject->sizeLong = $size;
+        $sizeObject->sizeCode = $sizeCode;
+        $sizeObject->sizeLong = ($sizeLabel === null) ? $sizeCode : $sizeLabel;
 
         $colorObject = new Color();
-        $colorObject->colorCode = $color;
-        $colorObject->description = $color;
+        $colorObject->colorCode = $colorCode;
+        $colorObject->description = ($colorLabel === null) ? $colorCode : $colorLabel;
 
         $this->sizes[] = $sizeObject;
 
         $isNew = true;
         foreach ($this->colors as $currentColor) {
-
-            if ($currentColor->colorCode == $color) {
+            if ($currentColor->colorCode == $colorCode) {
                 $isNew = false;
             }
         }

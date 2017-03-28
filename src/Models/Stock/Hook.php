@@ -11,7 +11,7 @@ namespace Afosto\FashionPartner\Models\Stock;
  * @property string $name
  * @property string $event
  * @property string $eventTime
- * @property Stock[] $list
+ * @property StockItem[] $list
  */
 class Hook extends StockList {
 
