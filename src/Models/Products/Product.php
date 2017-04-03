@@ -154,7 +154,12 @@ class Product extends Model {
     protected function validateResult($result) {
         if ($result['return']['status'] == 0) {
             $count = 0;
-            @$count = count($result['return']['styles']['style']['barcodes']['barcode']);
+            if (isset($result['return']['styles']['style']['barcodes']['barcode']['colorCode'])) {
+                $count = 1;
+            } else {
+                @$count = count($result['return']['styles']['style']['barcodes']['barcode']);
+            }
+
             if ($count === count($this->barcodes)) {
                 return true;
             }

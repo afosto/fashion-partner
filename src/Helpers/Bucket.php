@@ -16,10 +16,12 @@ class Bucket {
     private $_payload;
 
     /**
+     * @param null $payload
+     *
      * @return StockHook
      */
-    public function getStock() {
-        $this->_decodePost();
+    public function getStock($payload = null) {
+        $this->_validatePayload($payload);
         $hook = new StockHook();
         $hook->setAttributes($this->_payload);
 
@@ -40,10 +42,12 @@ class Bucket {
     }
 
     /**
+     * @param null $payload
+     *
      * @return TraceHook
      */
-    public function getTrackTrace() {
-        $this->_decodePost();
+    public function getTrackTrace($payload = null) {
+        $this->_validatePayload($payload);
         $hook = new TraceHook();
         $hook->setAttributes($this->_payload);
 
@@ -66,11 +70,17 @@ class Bucket {
 
     /**
      * Gather the payload
+     *
+     * @param null $payload
+     *
+     * @throws AppException
      */
-    private function _decodePost() {
-        $content = file_get_contents('php://input');
-        if ($this->_isValidXml($content)) {
-            $data = simplexml_load_string($content);
+    private function _validatePayload($payload = null) {
+        if ($payload === null) {
+            $payload = file_get_contents('php://input');
+        }
+        if ($this->_isValidXml($payload)) {
+            $data = simplexml_load_string($payload);
             $this->_payload = json_decode(json_encode($data), true);
         } else {
             throw new AppException('Incomming request is not valid');

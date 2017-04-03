@@ -63,7 +63,9 @@ class Api {
             'user_agent'         => 'Afosto DNL Client',
             'trace'              => $this->_debug,
             'stream_context'     => stream_context_create([
-                'http' => ['accept' => 'application/xml'],
+                'http' => [
+                    'accept' => 'application/xml',
+                ],
             ]),
         ]);
     }
