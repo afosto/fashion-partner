@@ -21,13 +21,8 @@ class App {
      * Init with the proper configuration
      *
      * @param $config
-     *
-     * @throws AppException
      */
     public static function init($config) {
-        if (self::$_app !== null) {
-            throw new AppException('Invalid init');
-        }
         self::$_app = new App($config);
     }
 
@@ -41,6 +36,13 @@ class App {
         }
 
         return self::$_app;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isReady() {
+        return self::$_app !== null;
     }
 
     /**
