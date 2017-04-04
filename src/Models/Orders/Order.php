@@ -2,9 +2,11 @@
 
 namespace Afosto\FashionPartner\Models\Orders;
 
+use Afosto\Bp\Exceptions\ValidationException;
 use Afosto\FashionPartner\Components\App;
 use Afosto\FashionPartner\Components\Model;
 use Afosto\FashionPartner\Components\Operations\Push;
+use Afosto\FashionPartner\Helpers\ShippingMethodHelper;
 
 /**
  * Class Order
@@ -113,7 +115,7 @@ class Order extends Model {
             ['deliveryAddressId', 'string', false, 10],
             ['salesRepresentativeNumber', 'string', false, 10],
             ['salesAgentNumber', 'string', false, 10],
-            ['shippingAgent', 'string', false, 5],
+            ['shippingAgent', 'string', true, 'validateShippingAgent'],
             ['shippingMethod', 'string', false, 6],
             ['orderCategory', 'string', false, 1],
             ['shippingCost', 'float', false, 'validateTransportCost'],
@@ -176,6 +178,15 @@ class Order extends Model {
     }
 
     /**
+     * @throws ValidationException
+     */
+    public function validateShippingAgent() {
+        if (!in_array($this->shippingAgent, ShippingMethodHelper::getShippingMethods())) {
+            throw new ValidationException('Invalid shipping agent: ' . $this->shippingAgent . ' not one of ' . implode(', ', ShippingMethodHelper::getShippingMethods()));
+        }
+    }
+
+    /**
      * Run some validation
      */
     public function beforeValidate() {
@@ -185,7 +196,6 @@ class Order extends Model {
 
         if ($this->_pickupPoint !== null) {
             $this->shipmentAddress->setAttributes($this->_pickupPoint->getModel());
-            $this->shippingAgent = 'SVRPS';
             $this->deliveryAddressId = $this->_pickupPoint->id;
         }
 

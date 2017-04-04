@@ -29,6 +29,7 @@ $model->shippingCost = 0.00;
 $model->orderReference = 'EXT-ID-123';
 $model->deliverAtNeighbour = true;
 $model->customerId = 1;
+$model->shippingAgent = \Afosto\FashionPartner\Helpers\ShippingMethodHelper::METHOD_POST_NL;
 
 $model->shipmentAddress = $address;
 $model->customer = $contact;
