@@ -181,8 +181,8 @@ class Order extends Model {
      * @throws ValidationException
      */
     public function validateShippingAgent() {
-        if (!in_array($this->shippingAgent, ShippingMethodHelper::getShippingMethods())) {
-            throw new ValidationException('Invalid shipping agent: ' . $this->shippingAgent . ' not one of ' . implode(', ', ShippingMethodHelper::getShippingMethods()));
+        if (!ShippingMethodHelper::isValid($this->shippingAgent)) {
+            throw new ValidationException('Invalid shipping agent: ' . $this->shippingAgent);
         }
     }
 

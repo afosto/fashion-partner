@@ -13,17 +13,55 @@ class ShippingMethodHelper {
     const METHOD_DNL_PICKUP_POINT = 'SVRPS';
 
     /**
-     * Return an array of supported shipping methods and their codes
+     * @param bool $filterImplemented
      *
      * @return array
      */
-    public static function getShippingMethods() {
-        return [
-            'PostNL Standaard'  => self::METHOD_POST_NL,
-            'PostNL Pakjegemak' => self::METHOD_POST_NL_PAKJEGEMAK,
-            'DHL Standaard'     => self::METHOD_DHL,
-            'DHL Pickup Point'  => self::METHOD_DNL_PICKUP_POINT,
+    public static function getMethods($filterImplemented = true) {
+        $methods = [
+            [
+                'label'       => 'PostNL Standaard',
+                'code'        => self::METHOD_POST_NL,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'PostNL Pakjegemak',
+                'code'        => self::METHOD_POST_NL_PAKJEGEMAK,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'DHL Standaard',
+                'code'        => self::METHOD_DHL,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'DHL Pickup Point',
+                'code'        => self::METHOD_DNL_PICKUP_POINT,
+                'implemented' => true,
+            ],
         ];
+        if ($filterImplemented) {
+            $methods = array_filter($methods, function ($value) {
+                return $value['implemented'];
+            });
+        }
+
+        return $methods;
+    }
+
+    /**
+     * @param $code
+     *
+     * @return bool
+     */
+    public static function isValid($code) {
+        foreach (self::getMethods() as $method) {
+            if ($method['code'] == $code) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
