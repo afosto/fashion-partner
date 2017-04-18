@@ -10,7 +10,9 @@ class ShippingMethodHelper {
 
     const METHOD_DHL = 'SVR';
 
-    const METHOD_DNL_PICKUP_POINT = 'SVRPS';
+    const METHOD_DHL_PICKUP_POINT = 'SVRPS';
+
+    const METHOD_DPD = 'DPD';
 
     /**
      * @param bool $filterImplemented
@@ -36,7 +38,12 @@ class ShippingMethodHelper {
             ],
             [
                 'label'       => 'DHL Pickup Point',
-                'code'        => self::METHOD_DNL_PICKUP_POINT,
+                'code'        => self::METHOD_DHL_PICKUP_POINT,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'DPD',
+                'code'        => self::METHOD_DPD,
                 'implemented' => true,
             ],
         ];
