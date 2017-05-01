@@ -12,24 +12,25 @@ use Afosto\FashionPartner\Helpers\ShippingMethodHelper;
  * Class Order
  * @package Afosto\FashionPartner\Models\Order
  *
- * @property string  $orderType
- * @property integer $orderId
- * @property string  $orderDate
- * @property string  $customerId
- * @property string  $deliveryAddressId
- * @property string  $salesRepresentativeNumber
- * @property string  $salesAgentNumber
- * @property string  $shippingAgent
- * @property string  $shippingMethod
- * @property string  $orderCategory
- * @property float   $shippingCost
- * @property string  $orderReference
- * @property string  $trackTraceNumber
- * @property integer $exchangeNumber
- * @property string  $deliverAtNeighbour
- * @property Contact $customer
- * @property Address $shipmentAddress
- * @property Item[]  $items
+ * @property string    $orderType
+ * @property integer   $orderId
+ * @property string    $orderDate
+ * @property string    $customerId
+ * @property string    $deliveryAddressId
+ * @property string    $salesRepresentativeNumber
+ * @property string    $salesAgentNumber
+ * @property string    $shippingAgent
+ * @property string    $shippingMethod
+ * @property string    $orderCategory
+ * @property float     $shippingCost
+ * @property string    $orderReference
+ * @property string    $trackTraceNumber
+ * @property integer   $exchangeNumber
+ * @property string    $deliverAtNeighbour
+ * @property Contact   $customer
+ * @property Address   $shipmentAddress
+ * @property Item[]    $items
+ * @property Payment[] $payments
  */
 class Order extends Model {
 
@@ -98,6 +99,7 @@ class Order extends Model {
             'customer'                  => 'CUSTOMER_DETAILS',
             'shipmentAddress'           => 'DELIVERY_ADDRESS',
             'items'                     => 'STYLES',
+            'payments'                  => 'PAYMENTS',
 
         ];
     }
@@ -126,6 +128,7 @@ class Order extends Model {
             ['customer', 'Contact', true],
             ['shipmentAddress', 'Address', false],
             ['items', 'Item[]', true],
+            ['payments', 'Payment[]', false],
         ];
     }
 
