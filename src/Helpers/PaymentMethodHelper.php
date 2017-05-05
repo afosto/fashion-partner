@@ -22,6 +22,18 @@ class PaymentMethodHelper {
 
     const METHOD_BANCONTACT = 'BCMC';
 
+    const METHOD_I_DEAL = 'IDEA';
+
+    const METHOD_SOFORT = 'SOFO';
+
+    const METHOD_GIROPAY = 'GIRO';
+
+    const METHOD_KLARNA = 'KLAR';
+
+    const METHOD_FASHION_CHEQUE = 'FACH';
+
+    const METHOD_PAYPAL = 'PAYP';
+
     /**
      * @param bool $filterImplemented
      *
@@ -72,6 +84,36 @@ class PaymentMethodHelper {
             [
                 'label'       => 'Bancontact',
                 'code'        => self::METHOD_BANCONTACT,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'iDeal',
+                'code'        => self::METHOD_I_DEAL,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'Sofort',
+                'code'        => self::METHOD_SOFORT,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'GiroPay',
+                'code'        => self::METHOD_GIROPAY,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'Klarna',
+                'code'        => self::METHOD_KLARNA,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'FashionCheque',
+                'code'        => self::METHOD_FASHION_CHEQUE,
+                'implemented' => true,
+            ],
+            [
+                'label'       => 'PayPal',
+                'code'        => self::METHOD_PAYPAL,
                 'implemented' => true,
             ],
 
