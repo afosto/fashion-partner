@@ -4,6 +4,9 @@ namespace Afosto\FashionPartner\Helpers;
 
 use Afosto\FashionPartner\Helpers\Exceptions\AppException;
 use Afosto\FashionPartner\Models\Orders\Hook as TraceHook;
+use Afosto\FashionPartner\Models\Orders\ReturnHook;
+use Afosto\FashionPartner\Models\Orders\ReturnItem;
+use Afosto\FashionPartner\Models\Orders\ReturnOrder;
 use Afosto\FashionPartner\Models\Orders\TrackTrace;
 use Afosto\FashionPartner\Models\Stock\Hook as StockHook;
 use Afosto\FashionPartner\Models\Stock\StockItem;
@@ -63,6 +66,33 @@ class Bucket {
             $trace = new TrackTrace();
             $trace->setAttributes($traceData);
             $hook->list[] = $trace;
+        }
+
+        return $hook;
+    }
+
+    /**
+     * @param null $payload
+     *
+     * @return ReturnHook
+     */
+    public function getReturn($payload = null) {
+        $this->_validatePayload($payload);
+
+        $hook = new ReturnHook();
+        $hook->setAttributes($this->_payload);
+
+        foreach ($this->_payload['data']['customerReturnList'] as $returnData) {
+
+            $returnOrder = new ReturnOrder();
+            $returnOrder->setAttributes($returnData);
+
+            foreach ($returnData['styleList'] as $style) {
+                $returnItem = new ReturnItem();
+                $returnItem->setAttributes($style);
+                $returnOrder->items[] = $returnItem;
+            }
+            $hook->list[] = $returnOrder;
         }
 
         return $hook;
