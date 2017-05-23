@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: peterbakker
- * Date: 23-05-17
- * Time: 14:42
- */
 
 namespace Afosto\FashionPartner\Models\Orders;
 
