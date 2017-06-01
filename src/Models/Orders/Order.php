@@ -38,15 +38,24 @@ class Order extends Model {
 
     /**
      * Default order type
-     * @var string
      */
     const TYPE_ORDER = 'O';
 
     /**
      * Return order type
-     * @var string
      */
     const TYPE_RETURN = 'R';
+
+    /**
+     * Order category for business to business order
+     */
+    const CATEGORY_B2B = 'B';
+
+    /**
+     * Order category for business to customer orders
+     * Default setting
+     */
+    const CATEGORY_B2C = 'C';
 
     /**
      * @var PickupPoint
@@ -195,6 +204,10 @@ class Order extends Model {
     public function beforeValidate() {
         if ($this->orderType === null) {
             $this->orderType = self::TYPE_ORDER;
+        }
+
+        if ($this->orderCategory === null) {
+            $this->orderCategory = self::CATEGORY_B2C;
         }
 
         if ($this->_pickupPoint !== null) {
