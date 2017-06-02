@@ -25,7 +25,7 @@ class StoreAddress extends Model {
         return [
             ['storeName', 'string', true, 35],
             ['customerName', 'string', true, 35],
-            ['storeStreet1', 'string', true, 35],
+            ['storeStreet1', 'string', true, 100],
             ['storeStreet2', 'string', false, 35],
             ['storePostalCode', 'string', true, 10],
             ['storeCity', 'string', true, 30],

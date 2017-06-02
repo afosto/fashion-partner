@@ -23,7 +23,7 @@ class Address extends Model {
         return [
             ['name', 'string', true, 35],
             ['additionalName', 'string', false, 35],
-            ['street1', 'string', true, 35],
+            ['street1', 'string', true, 100],
             ['street2', 'string', false, 35],
             ['postalCode', 'string', true, 10],
             ['city', 'string', true, 30],
