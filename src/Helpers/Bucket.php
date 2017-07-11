@@ -81,11 +81,18 @@ class Bucket {
 
         $hook = new ReturnHook();
         $hook->setAttributes($this->_payload);
+        $reformattedReturnList =[];
+
+        if (isset($this->_payload['data']['customerReturnList']['customerReturn'][0])) {
+            foreach ($this->_payload['data']['customerReturnList']['customerReturn'] as $returnData) {
+                $reformattedReturnList[] = $returnData;
+            }
+            $this->_payload['data']['customerReturnList'] = $reformattedReturnList;
+
+        }
 
         foreach ($this->_payload['data']['customerReturnList'] as $returnData) {
-
             $returnOrder = new ReturnOrder();
-
             if (isset($returnData['styleList']['style'][0])) {
                 $reformattedStyleList = [];
                 foreach ($returnData['styleList']['style'] as $style) {
