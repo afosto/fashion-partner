@@ -3,9 +3,10 @@
 namespace Afosto\FashionPartner\Helpers;
 
 use Afosto\FashionPartner\Helpers\Exceptions\AppException;
+use Afosto\FashionPartner\Models\Orders\CancelHook;
+use Afosto\FashionPartner\Models\Orders\CancelOrder;
 use Afosto\FashionPartner\Models\Orders\Hook as TraceHook;
 use Afosto\FashionPartner\Models\Orders\ReturnHook;
-use Afosto\FashionPartner\Models\Orders\ReturnItem;
 use Afosto\FashionPartner\Models\Orders\ReturnOrder;
 use Afosto\FashionPartner\Models\Orders\TrackTrace;
 use Afosto\FashionPartner\Models\Stock\Hook as StockHook;
@@ -81,14 +82,13 @@ class Bucket {
 
         $hook = new ReturnHook();
         $hook->setAttributes($this->_payload);
-        $reformattedReturnList =[];
+        $reformattedReturnList = [];
 
         if (isset($this->_payload['data']['customerReturnList']['customerReturn'][0])) {
             foreach ($this->_payload['data']['customerReturnList']['customerReturn'] as $returnData) {
                 $reformattedReturnList[] = $returnData;
             }
             $this->_payload['data']['customerReturnList'] = $reformattedReturnList;
-
         }
 
         foreach ($this->_payload['data']['customerReturnList'] as $returnData) {
@@ -102,6 +102,41 @@ class Bucket {
             }
             $returnOrder->setAttributes($returnData);
             $hook->list[] = $returnOrder;
+        }
+
+        return $hook;
+    }
+
+    /**
+     * @param null $payload
+     *
+     * @return CancelHook
+     */
+    public function getCancel($payload = null) {
+        $this->_validatePayload($payload);
+
+        $hook = new CancelHook();
+        $hook->setAttributes($this->_payload);
+        $reformattedCancelList = [];
+
+        if (isset($this->_payload['data']['customerOrderAnnulationList']['customerOrderAnnulation'][0])) {
+            foreach ($this->_payload['data']['customerOrderAnnulationList']['customerOrderAnnulation'] as $cancelData) {
+                $reformattedCancelList[] = $cancelData;
+            }
+            $this->_payload['data']['customerOrderAnnulationList'] = $reformattedCancelList;
+        }
+
+        foreach ($this->_payload['data']['customerOrderAnnulationList'] as $cancelData) {
+            $cancelOrder = new CancelOrder();
+            if (isset($cancelData['styleList']['style'][0])) {
+                $reformattedStyleList = [];
+                foreach ($cancelData['styleList']['style'] as $style) {
+                    $reformattedStyleList[] = $style;
+                }
+                $cancelData['styleList'] = $reformattedStyleList;
+            }
+            $cancelOrder->setAttributes($cancelData);
+            $hook->list[] = $cancelOrder;
         }
 
         return $hook;
