@@ -64,6 +64,14 @@ class Bucket {
         }
 
         foreach ($traces as $traceData) {
+            if (isset($traceData['styleList']['style'][0])) {
+                foreach ($traceData['styleList']['style'] as $styleData) {
+
+                    $reformattedStyleList[] = $styleData;
+                }
+                $traceData['styleList'] = $reformattedStyleList;
+            }
+
             $trace = new TrackTrace();
             $trace->setAttributes($traceData);
             $hook->list[] = $trace;
