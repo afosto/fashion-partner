@@ -65,6 +65,7 @@ class Bucket {
 
         foreach ($traces as $traceData) {
             //Fix the payload for singular style items
+            $reformattedStyleList = [];
             if (isset($traceData['styleList']['style'][0])) {
                 foreach ($traceData['styleList']['style'] as $styleData) {
                     $reformattedStyleList[] = $styleData;
