@@ -51,6 +51,7 @@ class Barcode extends Model {
             'sizeCode'  => $this->size->sizeCode,
             'colorCode' => $this->color->colorCode,
             'code'      => $this->code,
+            'codeChar'  => $this->code,
         ];
     }
 
