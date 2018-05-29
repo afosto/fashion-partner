@@ -13,6 +13,7 @@ use Afosto\FashionPartner\Components\Model;
  * @property string       $transporter
  * @property string       $boxNumber
  * @property string       $boxReference
+ * @property integer      $customer
  * @property ReturnItem[] $items
  */
 class TrackTrace extends Model {
