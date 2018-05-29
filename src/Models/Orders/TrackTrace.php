@@ -34,6 +34,7 @@ class TrackTrace extends Model {
             ['transporter', 'string', true],
             ['boxNumber', 'string', false],
             ['boxReference', 'string', false],
+            ['customer','integer', false],
             ['items', 'ReturnItem[]', true],
         ];
     }
