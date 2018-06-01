@@ -42,7 +42,7 @@ class Barcode extends Model {
 
     public function getRules() {
         return [
-            ['code', 'string', true],
+            ['code', 'string', false],
         ];
     }
 
@@ -50,7 +50,7 @@ class Barcode extends Model {
         return [
             'sizeCode'  => $this->size->sizeCode,
             'colorCode' => $this->color->colorCode,
-            'code'      => $this->code,
+            'code'      => '',
             'codeChar'  => $this->code,
         ];
     }
